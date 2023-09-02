@@ -1,0 +1,26 @@
+spring.profiles.active: local
+spring.config.import: vault://
+#spring.application.name: demo
+spring.cloud.vault:
+  scheme: http
+  host: ${VAULT_HOST} # vault 서버 주소
+  port: 18200
+  # APPROLE 방식
+  authentication: APPROLE
+  app-role:
+    app-role-path: "approle"
+    role: "dreamtodo_ro"
+    role-id: ${VAULT_ROLE_ID}
+    secret-id: ${VAULT_SECRET_ID}
+  # APPROLE 방식
+  # root_token 방식
+#  authentication: TOKEN
+#  token: ${VAULT_TOKEN}
+  # root_token 방식
+  connection-timeout: 5000
+  read-timeout: 15000
+  kv:
+    backend: dreamtodo
+    default-context: ${spring.profiles.active} #secret 이후의 경로
+
+host: ${example.username}
